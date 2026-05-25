@@ -382,6 +382,25 @@ with gr.Blocks(theme=gr.themes.Minimal(primary_hue="indigo", neutral_hue="slate"
             </div>
             """)
             
+    # Quick System Guide (Brief explanation of what it does and how to use it)
+    gr.HTML("""
+    <div style='background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px 20px; margin-top: 20px; margin-bottom: 8px; font-size: 13px; line-height: 1.5; color: #475569; box-shadow: 0 1px 3px rgba(0,0,0,0.02);'>
+        <div style='display: flex; gap: 8px; align-items: center; margin-bottom: 8px; font-weight: 700; color: #1e293b; font-size: 14px;'>
+            <span>📖 System Protocol & Operations Guide</span>
+        </div>
+        <div style='display: grid; grid-template-columns: 1fr 1fr; gap: 24px;'>
+            <div style='border-right: 1px solid #e2e8f0; padding-right: 24px;'>
+                <strong style='color: #4f46e5; display: block; margin-bottom: 4px;'>⚙️ What it does:</strong>
+                This platform uses a fine-tuned DistilBERT sequence classifier to automatically analyze and route incoming customer service tickets. It maps text patterns directly to 4 core corporate departments (Security, Billing, Engineering, or Sales) with high-confidence latency under 35ms.
+            </div>
+            <div>
+                <strong style='color: #0ea5e9; display: block; margin-bottom: 4px;'>⚡ How to use it:</strong>
+                Type or paste a raw ticket description or system error log in the <strong>Input Panel</strong> (or click one of the quick templates below). Click <strong>Parse & Dispatch Ticket</strong> to trigger the neural inference pipeline, display SLA urgencies, trigger escalation scripts, and draft customer replies.
+            </div>
+        </div>
+    </div>
+    """)
+
     # Main Dashboard Panel
     with gr.Row(equal_height=True):
         
