@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints
+
+# Large Model weights & Checkpoints (Hugging Face Outputs)
+support_router_checkpoints/
+final_ticket_router_model/
+
+# Compiler Utilities
+generate_notebook.py
+
+# Operating System Metadata
+.DS_Store
+Thumbs.db
+
