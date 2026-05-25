@@ -239,44 +239,44 @@ def generate_routing_report(ticket_text):
         escalation_instructions = "🛠️ Escalating to Tier 3 Site Reliability Engineers (SRE). Logging system telemetry traces and opening DevOps Jira Incident tracking ticket."
         suggested_email_draft = "Dear Engineer/Admin,\n\nOur system auto-classifier has logged a high-severity bug report. Our technical staff is currently investigating the telemetry logs."
 
-    # Build gorgeous premium HTML dashboard report
+    # Build gorgeous premium HTML dashboard report in Light Mode
     report_html = f"""
-    <div style='background-color: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px; font-family: system-ui, sans-serif; color: #f8fafc;'>
-        <div style='display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 12px; margin-bottom: 16px;'>
-            <span style='font-size: 14px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em;'>Router Brief Report</span>
+    <div style='background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; font-family: system-ui, sans-serif; color: #1e293b; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);'>
+        <div style='display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;'>
+            <span style='font-size: 14px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em;'>Router Brief Report</span>
             <span class='badge {badge_style}'>{assigned_label}</span>
         </div>
         
         <div style='display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;'>
-            <div style='background: #0f172a; padding: 12px; border-radius: 8px; border: 1px solid #334155;'>
-                <div style='font-size: 11px; color: #94a3b8; text-transform: uppercase;'>Confidence Accuracy</div>
-                <div style='font-size: 20px; font-weight: bold; color: #10b981; margin-top: 4px;'>{confidence_score * 100:.2f}%</div>
+            <div style='background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;'>
+                <div style='font-size: 11px; color: #64748b; text-transform: uppercase;'>Confidence Accuracy</div>
+                <div style='font-size: 20px; font-weight: bold; color: #059669; margin-top: 4px;'>{confidence_score * 100:.2f}%</div>
             </div>
-            <div style='background: #0f172a; padding: 12px; border-radius: 8px; border: 1px solid #334155;'>
-                <div style='font-size: 11px; color: #94a3b8; text-transform: uppercase;'>Urgency Level</div>
-                <div style='font-size: 20px; font-weight: bold; color: {'#f87171' if priority in ['CRITICAL', 'CRITICAL / SEVERE'] else '#fbbf24' if priority == 'HIGH' else '#38bdf8'}; margin-top: 4px;'>{priority}</div>
+            <div style='background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;'>
+                <div style='font-size: 11px; color: #64748b; text-transform: uppercase;'>Urgency Level</div>
+                <div style='font-size: 20px; font-weight: bold; color: {'#ef4444' if priority in ['CRITICAL', 'CRITICAL / SEVERE'] else '#d97706' if priority == 'HIGH' else '#0284c7'}; margin-top: 4px;'>{priority}</div>
             </div>
         </div>
         
         <div style='margin-bottom: 16px;'>
-            <div style='font-size: 12px; font-weight: bold; color: #94a3b8; text-transform: uppercase; margin-bottom: 6px;'>Escalation Procedure & DevOps Action:</div>
-            <div style='background: rgba(99, 102, 241, 0.1); border-left: 3px solid #6366f1; padding: 10px 14px; border-radius: 4px; font-size: 13px; line-height: 1.5; color: #e2e8f0;'>
+            <div style='font-size: 12px; font-weight: bold; color: #64748b; text-transform: uppercase; margin-bottom: 6px;'>Escalation Procedure & DevOps Action:</div>
+            <div style='background: rgba(99, 102, 241, 0.05); border-left: 3px solid #6366f1; padding: 10px 14px; border-radius: 4px; font-size: 13px; line-height: 1.5; color: #334155;'>
                 {escalation_instructions}
             </div>
         </div>
         
         <div>
-            <div style='font-size: 12px; font-weight: bold; color: #94a3b8; text-transform: uppercase; margin-bottom: 6px;'>Auto-Generated Customer Reply Draft:</div>
-            <textarea readonly style='width: 100%; height: 80px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 8px; font-family: monospace; font-size: 12px; color: #e2e8f0; resize: none; outline: none;'>{suggested_email_draft}</textarea>
+            <div style='font-size: 12px; font-weight: bold; color: #64748b; text-transform: uppercase; margin-bottom: 6px;'>Auto-Generated Customer Reply Draft:</div>
+            <textarea readonly style='width: 100%; height: 80px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px; font-family: monospace; font-size: 12px; color: #334155; resize: none; outline: none;'>{suggested_email_draft}</textarea>
         </div>
     </div>
     """
     return report_html, distribution
 
-# High-fidelity dark mode custom CSS stylesheet
+# High-fidelity minimal light theme custom CSS stylesheet
 custom_css = """
 body {
-    background-color: #090d16 !important;
+    background-color: #f8fafc !important;
 }
 .gradio-container {
     font-family: 'Outfit', 'Inter', system-ui, sans-serif !important;
@@ -284,15 +284,17 @@ body {
     margin: 0 auto !important;
 }
 .stat-card {
-    background: #111827 !important;
-    border: 1px solid #1f2937 !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
     border-radius: 12px !important;
     padding: 16px !important;
     text-align: center !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
     transition: all 0.2s ease-in-out !important;
 }
 .stat-card:hover {
-    border-color: #4f46e5 !important;
+    border-color: #6366f1 !important;
+    box-shadow: 0 4px 6px rgba(99, 102, 241, 0.08) !important;
     transform: translateY(-2px) !important;
 }
 .badge {
@@ -305,44 +307,45 @@ body {
     letter-spacing: 0.05em;
 }
 .badge-security {
-    background: rgba(239, 68, 68, 0.15) !important;
-    color: #f87171 !important;
-    border: 1px solid rgba(239, 68, 68, 0.4) !important;
+    background: #fee2e2 !important;
+    color: #ef4444 !important;
+    border: 1px solid #fca5a5 !important;
 }
 .badge-general {
-    background: rgba(14, 165, 233, 0.15) !important;
-    color: #38bdf8 !important;
-    border: 1px solid rgba(14, 165, 233, 0.4) !important;
+    background: #e0f2fe !important;
+    color: #0284c7 !important;
+    border: 1px solid #bae6fd !important;
 }
 .badge-billing {
-    background: rgba(16, 185, 129, 0.15) !important;
-    color: #34d399 !important;
-    border: 1px solid rgba(16, 185, 129, 0.4) !important;
+    background: #d1fae5 !important;
+    color: #059669 !important;
+    border: 1px solid #a7f3d0 !important;
 }
 .badge-tech {
-    background: rgba(245, 158, 11, 0.15) !important;
-    color: #fbbf24 !important;
-    border: 1px solid rgba(245, 158, 11, 0.4) !important;
+    background: #fef3c7 !important;
+    color: #d97706 !important;
+    border: 1px solid #fde68a !important;
 }
 button.primary {
-    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%) !important;
+    background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%) !important;
     border: none !important;
+    color: white !important;
     transition: background 0.3s ease !important;
 }
 button.primary:hover {
-    background: linear-gradient(135deg, #4338ca 0%, #2563eb 100%) !important;
+    background: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%) !important;
 }
 """
 
-with gr.Blocks(theme=gr.themes.Soft(primary_hue="indigo", neutral_hue="slate"), css=custom_css) as app_interface:
+with gr.Blocks(theme=gr.themes.Minimal(primary_hue="indigo", neutral_hue="slate"), css=custom_css) as app_interface:
     
     # Header Area
     gr.HTML("""
     <div style='text-align: center; margin-bottom: 28px; padding-top: 10px;'>
-        <h1 style='font-size: 32px; font-weight: 800; background: linear-gradient(to right, #818cf8, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px;'>
+        <h1 style='font-size: 32px; font-weight: 800; background: linear-gradient(to right, #4f46e5, #0ea5e9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px;'>
             🤖 Intelligent Support Ticket Router Dashboard
         </h1>
-        <p style='color: #94a3b8; font-size: 15px; max-width: 650px; margin: 0 auto;'>
+        <p style='color: #475569; font-size: 15px; max-width: 650px; margin: 0 auto;'>
             A fine-tuned DistilBERT-based customer service automation center. Paste customer issues, system exceptions, or inquiries to classify and execute workflows in real time.
         </p>
     </div>
@@ -353,28 +356,28 @@ with gr.Blocks(theme=gr.themes.Soft(primary_hue="indigo", neutral_hue="slate"), 
         with gr.Column(scale=1):
             gr.HTML(f"""
             <div class='stat-card'>
-                <div style='font-size: 24px; font-weight: 800; color: #818cf8;'>DistilBERT</div>
+                <div style='font-size: 24px; font-weight: 800; color: #4f46e5;'>DistilBERT</div>
                 <div style='font-size: 11px; color: #64748b; text-transform: uppercase; margin-top: 4px;'>Fine-Tuned Base Model</div>
             </div>
             """)
         with gr.Column(scale=1):
             gr.HTML("""
             <div class='stat-card'>
-                <div style='font-size: 24px; font-weight: 800; color: #10b981;'>&lt; 35ms</div>
+                <div style='font-size: 24px; font-weight: 800; color: #059669;'>&lt; 35ms</div>
                 <div style='font-size: 11px; color: #64748b; text-transform: uppercase; margin-top: 4px;'>Classification Latency</div>
             </div>
             """)
         with gr.Column(scale=1):
             gr.HTML("""
             <div class='stat-card'>
-                <div style='font-size: 24px; font-weight: 800; color: #0ea5e9;'>99.8%</div>
+                <div style='font-size: 24px; font-weight: 800; color: #0284c7;'>99.8%</div>
                 <div style='font-size: 11px; color: #64748b; text-transform: uppercase; margin-top: 4px;'>Automated Dispatch Rate</div>
             </div>
             """)
         with gr.Column(scale=1):
             gr.HTML("""
             <div class='stat-card'>
-                <div style='font-size: 24px; font-weight: 800; color: #34d399;'>Operational</div>
+                <div style='font-size: 24px; font-weight: 800; color: #059669;'>Operational</div>
                 <div style='font-size: 11px; color: #64748b; text-transform: uppercase; margin-top: 4px;'>Routing Router Status</div>
             </div>
             """)
@@ -411,7 +414,7 @@ with gr.Blocks(theme=gr.themes.Soft(primary_hue="indigo", neutral_hue="slate"), 
             # Rich HTML Report Card
             output_report_html = gr.HTML(
                 value="""
-                <div style='background-color: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; text-align: center; color: #94a3b8; font-family: system-ui, sans-serif;'>
+                <div style='background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; text-align: center; color: #64748b; font-family: system-ui, sans-serif; box-shadow: 0 1px 3px rgba(0,0,0,0.05);'>
                     <div style='font-size: 40px; margin-bottom: 12px;'>🤖</div>
                     <strong>Router Standby</strong><br>Submit a support ticket or choose a preset to trigger the classifier and display routing actions.
                 </div>
@@ -449,7 +452,7 @@ with gr.Blocks(theme=gr.themes.Soft(primary_hue="indigo", neutral_hue="slate"), 
     # Clear button action
     def clear_dashboard():
         empty_report = """
-        <div style='background-color: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; text-align: center; color: #94a3b8; font-family: system-ui, sans-serif;'>
+        <div style='background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; text-align: center; color: #64748b; font-family: system-ui, sans-serif; box-shadow: 0 1px 3px rgba(0,0,0,0.05);'>
             <div style='font-size: 40px; margin-bottom: 12px;'>🤖</div>
             <strong>Router Standby</strong><br>Submit a support ticket or choose a preset to trigger the classifier and display routing actions.
         </div>
