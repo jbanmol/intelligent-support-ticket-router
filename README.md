@@ -241,28 +241,40 @@ All library versions are locked for reproducibility:
 
 ---
 
-## 📝 Training Configuration
+## 📝 Training & Scaling Configurations
 
-| Hyperparameter | Value | Rationale |
-|:---|:---:|:---|
-| Base Model | `distilbert-base-uncased` | Lightweight, fast, strong baseline for text classification |
-| Learning Rate | `3e-5` | Standard safe rate for BERT fine-tuning |
-| Batch Size | `8` | Fits within free-tier Colab GPU memory |
-| Epochs | `2` | Sufficient for convergence on 600 samples |
-| Weight Decay | `0.01` | Mild L2 regularization to prevent overfitting |
-| Max Token Length | `128` | Covers typical support ticket lengths |
-| Train Samples | `600` | Fast prototype; scale to full 120k for production |
-| Test Samples | `150` | Validation set for per-epoch accuracy checks |
+The project supports two run-time scaling profiles, easily configured by toggling variables (`PRODUCTION_MODE` / `scale_to_full_dataset`) in the script or notebook:
+
+| Configuration | Prototype Mode | Production Mode | Rationale & Impact |
+|:---|:---:|:---:|:---|
+| **Dataset Volume** | 600 train / 150 test | **120,000 train / 7,600 test** | Scales to the full AG News corpus for maximum production accuracy |
+| **Epochs** | `2` | **`1`** | Fine-tuning a pre-trained model converges highly in 1 epoch on 120k samples |
+| **Learning Rate** | `3e-5` | `3e-5` | Standard stable gradient descent step size for BERT layers |
+| **Batch Size** | `8` | **`16`** | Exploits standard T4 GPU hardware parallelism and VRAM headroom |
+| **Evaluation Strategy** | Per-epoch | Per-epoch | Validates performance metrics at epoch completion checks |
+| **Checkpoint Storage** | Default save | **Dynamic logging (no checkpoint saving)** | Prevents Google Colab/local disk overflow issues during full runs |
+| **Training Time** | ~1 minute | **~15 minutes (Colab T4 GPU)** | Fast prototyping vs high-accuracy operational model generation |
+
+---
+
+## 🚀 Hugging Face Hub & Spaces Deployment
+
+You can automatically push the fine-tuned model and deploy the Gradio dashboard live to Hugging Face Spaces by enabling the `DEPLOY_TO_HUGGINGFACE` flag.
+
+### How it Works:
+1. **Model Hub Upload**: The pipeline connects to your Hugging Face Hub account and uploads the full fine-tuned model directory (including configuration and vocabulary weights).
+2. **Gradio Spaces App Inception**: Programmatically spawns a Gradio Space running a free CPU hardware slot.
+3. **Optimized Dash Boot**: Dynamically generates and uploads a self-contained `app.py` loader script and a custom `requirements.txt` to the Space repository. This loads your model from the Hub at boot time and runs the exact same dark-themed executive ticket routing cockpit!
 
 ---
 
 ## 🔮 Future Enhancements
 
-- [ ] Scale to full AG News dataset (120,000 training samples) for production accuracy
+- [x] Scale to full AG News dataset (120,000 training samples) for production accuracy
+- [x] Deploy as a persistent, permanent Hugging Face Space with `huggingface_hub`
 - [ ] Add F1, Precision, and Recall metrics alongside accuracy
 - [ ] Implement confidence thresholding — flag low-confidence tickets for human review
 - [ ] Add ticket history logging with SQLite or Firebase
-- [ ] Deploy as a persistent Hugging Face Space with `huggingface_hub`
 - [ ] Integrate Slack/Teams webhook notifications for critical ticket escalations
 
 ---
@@ -277,3 +289,4 @@ This project is open-source under the [MIT License](https://opensource.org/licen
   <strong>Built with 🧠 Hugging Face Transformers · 🎨 Gradio Blocks · ⚡ PyTorch</strong><br/>
   <sub>Built by Jb Anmol</sub>
 </p>
+
